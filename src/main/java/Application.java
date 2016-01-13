@@ -1,13 +1,28 @@
 import org.springframework.web.client.RestTemplate;
+import slack.SlackUser;
+import slack.SlackUserListParser;
+
+import java.util.ArrayList;
 
 public class Application {
 
     public static void main(String[] args){
         System.out.println("Запуск TimeCrawler");
 
-        String uri = "https://slack.com/api/chat.postMessage?token=xoxp-2914071231-18274875456-18301125571-4f208dd26f&channel=%40alexander_volkov&text=Second%20test&username=bot&pretty=1";
+//        String uri = "https://slack.com/api/chat.postMessage";
+//        String body = "?token=xoxb-18373787971-0b7ajI9mNSOnbswAwIK0sdvW&channel=@alexander_volkov&text=Русский+текст";
+        String uri = "https://slack.com/api/users.list?token=xoxb-18373787971-0b7ajI9mNSOnbswAwIK0sdvW&pretty=1";
+        String str = "";
+
         RestTemplate restTemplate = new RestTemplate();
         String result = restTemplate.getForObject(uri, String.class);
-        System.out.println(result);
+
+        SlackUserListParser slackUserListParser = new SlackUserListParser(result);
+        ArrayList<SlackUser> slackUsers = new ArrayList<SlackUser>();  
+        slackUsers.addAll(slackUserListParser.getListSlackUser());
+
+        for (SlackUser slackUser: slackUsers) {
+            System.out.println(slackUser.getId() + "\n" + slackUser.getTeamId() + "\n" + slackUser.getName() + "\n");
+        }
     }
 }
