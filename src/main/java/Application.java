@@ -1,4 +1,5 @@
 import org.springframework.web.client.RestTemplate;
+import slack.Message;
 import slack.SlackUser;
 import slack.SlackUserListParser;
 
@@ -8,6 +9,12 @@ public class Application {
 
     public static void main(String[] args){
         System.out.println("Запуск TimeCrawler");
+
+        String user = "maxim_nikitin";
+        String token = "xoxb-18373787971-0b7ajI9mNSOnbswAwIK0sdvW";
+        String text = "Hellow World";
+        Message message = new Message();
+        message.sendMessage(user,text,token);
 
 //        String uri = "https://slack.com/api/chat.postMessage";
 //        String body = "?token=xoxb-18373787971-0b7ajI9mNSOnbswAwIK0sdvW&channel=@alexander_volkov&text=Русский+текст";
