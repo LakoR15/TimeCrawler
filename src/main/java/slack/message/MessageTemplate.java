@@ -2,44 +2,41 @@ package slack.message;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 import slack.model.AttachmentObject;
+import slack.model.FieldsObject;
 import slack.model.MessageObject;
+import slack.model.TextModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Gidro on 13.01.2016.
- */
 public class MessageTemplate {
 
-    private List<AttachmentObject> as;
-    public String getUserTemplate(String user_name, String text) throws JsonProcessingException {
+    public String getUserTemplate(TextModel textModel) throws JsonProcessingException {
 
+        AttachmentObject attachmentObject = new AttachmentObject();
+        attachmentObject.setColor("danger");
+        attachmentObject.setPretext(textModel.getData());
+        attachmentObject.setAuthor_name(textModel.getUserName());
+        attachmentObject.setFallback("Важное уведомление!");
 
-       AttachmentObject a = new AttachmentObject();
-        a.setText(text);
-//               ("Title","Pretext _supports_ mrkdwn",text,"[\"text\", \"pretext\"]");
+        List<FieldsObject> fieldsObjectsArray = new ArrayList<FieldsObject>();
 
-        List<AttachmentObject> as = new ArrayList<AttachmentObject>();
+        fieldsObjectsArray.add(0, new FieldsObject("Задача:"+textModel.getTaskName(),textModel.getTaskValue(),false));
+        fieldsObjectsArray.add(1, new FieldsObject("Отмечено:",textModel.getMarkedHours(),true));
+        fieldsObjectsArray.add(2, new FieldsObject("Всего:",textModel.getTotalHours(),true));
 
+        attachmentObject.setFields(fieldsObjectsArray);
 
-        as.add(0,a);
+        List<AttachmentObject> attachmentObjectArray = new ArrayList<AttachmentObject>();
 
-       MessageObject sd = new MessageObject();
-        sd.setChannel("@"+user_name);
-        sd.setAttachments(as);
-//               ("@"+user_name,as);
+        attachmentObjectArray.add(0, attachmentObject);
 
+        MessageObject messageObject = new MessageObject();
+        messageObject.setChannel("@" + textModel.getUserName());
+        messageObject.setAttachments(attachmentObjectArray);
 
-        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-        String json = ow.writeValueAsString(sd);
-        return json;
-
-
-
-
+        return new ObjectMapper().writer().withDefaultPrettyPrinter().writeValueAsString(messageObject);
 
     }
 

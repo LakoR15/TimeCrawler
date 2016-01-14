@@ -32,6 +32,12 @@ public class FieldsObject {
         this.short_ = short_;
     }
 
+    public FieldsObject(String title, String value, Boolean short_) {
+        this.title = title;
+        this.value = value;
+        this.short_ = short_;
+    }
+
     public FieldsObject() {
     }
 

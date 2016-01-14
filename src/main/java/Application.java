@@ -12,7 +12,7 @@ public class Application {
 
         getUserList();
 
-        new Message().sendMessage("maxim_nikitin","Привет");
+        new Message().sendMessage("alexander_volkov","Привет");
 
 //        String user = "maxim_nikitin";
 //        String token = "xoxb-18373787971-0b7ajI9mNSOnbswAwIK0sdvW";

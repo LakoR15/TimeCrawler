@@ -23,6 +23,22 @@ public class AttachmentObject {
     private String thumb_url;
     private String mrkdwn_in;
 
+    public AttachmentObject(String fallback, String color, String pretext, String author_name, String author_link, String author_icon, String title, String title_link, String text, List<FieldsObject> fields, String image_url, String thumb_url, String mrkdwn_in) {
+        this.fallback = fallback;
+        this.color = color;
+        this.pretext = pretext;
+        this.author_name = author_name;
+        this.author_link = author_link;
+        this.author_icon = author_icon;
+        this.title = title;
+        this.title_link = title_link;
+        this.text = text;
+        this.fields = fields;
+        this.image_url = image_url;
+        this.thumb_url = thumb_url;
+        this.mrkdwn_in = mrkdwn_in;
+    }
+
     public String getColor() {
         return color;
     }

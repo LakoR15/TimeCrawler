@@ -3,6 +3,7 @@ package slack.message;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
+import slack.model.TextModel;
 
 import java.nio.charset.Charset;
 
@@ -22,7 +23,7 @@ public class Message {
         restTemplate.getMessageConverters()
                 .add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
 
-        String result = restTemplate.postForObject(uri,new MessageTemplate().getUserTemplate(user, text), String.class);
+        String result = restTemplate.postForObject(uri,new MessageTemplate().getUserTemplate(new TextModel()), String.class);
         System.out.println(result);
     }
 
