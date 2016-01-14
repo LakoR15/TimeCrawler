@@ -1,8 +1,7 @@
-package slack.model;
+package slack.model.json;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.web.client.RestTemplate;
-import slack.model.SlackUser;
+import slack.model.json.SlackUser;
 
 import java.io.Serializable;
 import java.util.List;

@@ -2,9 +2,11 @@ package slack.controller;
 
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
-import slack.model.Response;
+import slack.model.json.Response;
 import slack.model.TextModel;
 
+import java.io.IOException;
+import java.net.UnknownHostException;
 import java.nio.charset.Charset;
 import java.util.List;
 
@@ -26,12 +28,14 @@ public class UserReports {
 
         }
 
-    public static Response getUserList(){
+    public static Response getUserList() {
+
 
         String url = "https://slack.com/api/users.list?token=xoxb-18373787971-0b7ajI9mNSOnbswAwIK0sdvW&pretty=1";
 
         RestTemplate restTemplate = new RestTemplate();
-        Response response = restTemplate.getForObject(url, Response.class);
+        Response response;
+        response = restTemplate.getForObject(url, Response.class);
         System.out.println(response.getMembers().get(0).toString());
 
         return response;

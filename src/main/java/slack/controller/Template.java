@@ -2,9 +2,10 @@ package slack.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import slack.model.Attachment;
-import slack.model.Fields;
-import slack.model.Message;
+import slack.model.FieldsTextModel;
+import slack.model.json.Attachment;
+import slack.model.json.Fields;
+import slack.model.json.Message;
 import slack.model.TextModel;
 
 import java.util.ArrayList;
@@ -34,30 +35,37 @@ public class Template {
     private Attachment attachmantTemplate(TextModel textModel, int first)  {
 
         Attachment attachment = new Attachment();
-        if (textModel.getTotalHours() == textModel.getMarkedHours()){
-            attachment.setColor("good");
-            attachment.setFallback("Умничка!");
-        }
-        else {
+
             attachment.setColor("danger");
-            attachment.setFallback("Важное уведомление!");
-        }
+            attachment.setFallback("Отчёты по отмеченному времени");
 
         if(first == 0) {
         attachment.setPretext(textModel.getData());
         }
         attachment.setAuthor_name(textModel.getUserName());
         attachment.setAuthor_icon(textModel.getUserImage());
-
-        List<Fields> fieldsObjectsArray = new ArrayList<Fields>();
-
-        fieldsObjectsArray.add(0, new Fields("Задача: "+textModel.getTaskName(),textModel.getTaskValue(),false));
-        fieldsObjectsArray.add(1, new Fields("Отмечено:",textModel.getMarkedHours(),true));
-        fieldsObjectsArray.add(2, new Fields("Всего:",textModel.getTotalHours(),true));
-
-        attachment.setFields(fieldsObjectsArray);
+        attachment.setFields(fieldsObjectsArray(textModel));
 
         return attachment;
+    }
+
+    private List<Fields> fieldsObjectsArray(TextModel textModel) {
+
+
+        List<FieldsTextModel> fieldsList = textModel.getFieldsList();
+
+        List<Fields> fieldsObjectsArray = new ArrayList<Fields>();
+        double totalHours = 0;
+        for(int i=0;i<fieldsList.size();i++) {
+            fieldsObjectsArray.add(new Fields("Задача: " + fieldsList.get(i).getTaskName() + " (" + fieldsList.get(i).getProjectName() + ")", null, false));
+            fieldsObjectsArray.add(new Fields("Отмечено:", fieldsList.get(i).getMarkedHours() + " ч.", true));
+            totalHours+=Double.parseDouble(fieldsList.get(i).getMarkedHours());
+        if (i==fieldsList.size()-1)
+        {
+            fieldsObjectsArray.add(2, new Fields("Всего:",totalHours+" ч.",true));
+        }
+        }
+        return fieldsObjectsArray;
     }
 
 }

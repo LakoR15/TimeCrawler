@@ -1,4 +1,4 @@
-package slack.model;
+package slack.model.json;
 
 import java.util.List;
 

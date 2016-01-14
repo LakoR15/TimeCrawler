@@ -1,7 +1,8 @@
 import com.fasterxml.jackson.core.JsonProcessingException;
 import slack.controller.UserReports;
+import slack.model.FieldsTextModel;
 import slack.model.TextModel;
-import slack.model.Response;
+import slack.model.json.Response;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,19 +13,26 @@ public class Application {
 
         System.out.println("Запуск TimeCrawler");
 
+        List<FieldsTextModel> fieldsTextModels = new ArrayList<FieldsTextModel>();
+        fieldsTextModels.add(new FieldsTextModel("Таск1","Проект1","2"));
+        fieldsTextModels.add(new FieldsTextModel("Таск2","Проект3","3"));
+        fieldsTextModels.add(new FieldsTextModel("Таск3","Проект2","4"));
+
         Response response = UserReports.getUserList();
         List<TextModel> textModels = new ArrayList<TextModel>();
-        textModels.add(new TextModel("14.01.16","maxim_nikitin","Кролики","здесь должно быть описание","12","34",response
-                .getMembers().get(3)
-                .getProfile()
-                .getImage24()));
-        textModels.add(new TextModel("14.01.16","maxim_nikitin","Кролики","здесь должно быть описание","34","34",response
-                .getMembers().get(3)
-                .getProfile()
-                .getImage24()));
+        for(int i=0;i<response.getMembers().size();i++) {
+            textModels.add(new TextModel("14.16.16",
+                    response
+                            .getMembers().get(i)
+                            .getName(),
+                    response
+                            .getMembers().get(i)
+                            .getProfile()
+                            .getImage24()
+                    ,fieldsTextModels));
+        }
 
-
-       new UserReports().sendUserReport("alexander_volkov",textModels);
+       new UserReports().sendUserReport("maxim_nikitin",textModels);
 
 
         System.out.println("Завершение TimeCrawler");
