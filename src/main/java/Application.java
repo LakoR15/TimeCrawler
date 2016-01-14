@@ -1,13 +1,13 @@
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.web.client.RestTemplate;
-import slack.Message;
-import slack.Response;
-import slack.SlackUser;
-
-import java.util.Scanner;
+import slack.message.Message;
+import slack.message.MessageTemplate;
+import slack.response.Response;
 
 public class Application {
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws JsonProcessingException {
+
         System.out.println("Запуск TimeCrawler");
 
         getUserList();

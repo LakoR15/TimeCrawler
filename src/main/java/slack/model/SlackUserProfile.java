@@ -1,4 +1,4 @@
-package slack;
+package slack.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
