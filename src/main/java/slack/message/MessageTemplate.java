@@ -9,9 +9,6 @@ import slack.model.MessageObject;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Gidro on 13.01.2016.
- */
 public class MessageTemplate {
 
     private List<AttachmentObject> as;
