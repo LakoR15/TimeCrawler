@@ -4,9 +4,7 @@ import slack.model.AttachmentObject;
 
 import java.util.List;
 
-/**
- * Created by Gidro on 13.01.2016.
- */
+
 public class MessageObject {
 
 

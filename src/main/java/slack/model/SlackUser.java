@@ -6,16 +6,14 @@ import java.io.Serializable;
 
 public class SlackUser implements Serializable {
 
-    @JsonProperty
     private String id;
     @JsonProperty(value = "team_id")
     private String teamId;
-    @JsonProperty
     private String name;
     private boolean deleted;
     private String status;
     private String color;
-    @JsonProperty
+    @JsonProperty(value = "real_name")
     private String realName;
     private String tz;
     @JsonProperty(value = "tz_label")
@@ -45,7 +43,7 @@ public class SlackUser implements Serializable {
         return getId() + "\n" +
                 getName() + "\n" +
                 getTeamId() + "\n" +
-                getRealName();
+                getTz();
     }
 
     public String getId() {

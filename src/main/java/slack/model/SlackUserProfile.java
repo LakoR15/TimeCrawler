@@ -31,7 +31,7 @@ public class SlackUserProfile implements Serializable{
     private String phone;
     @JsonProperty(value = "real_name")
     private String realName;
-    @JsonProperty(value = "real_name_")
+    @JsonProperty(value = "real_name_normalized")
     private String realNameNormalized;
     private String email;
 

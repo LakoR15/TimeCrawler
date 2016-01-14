@@ -4,9 +4,6 @@ import slack.model.FieldsObject;
 
 import java.util.List;
 
-/**
- * Created by Gidro on 13.01.2016.
- */
 public class AttachmentObject {
 
     private String fallback;

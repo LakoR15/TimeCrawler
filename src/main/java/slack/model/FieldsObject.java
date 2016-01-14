@@ -2,9 +2,6 @@ package slack.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/**
- * Created by Gidro on 13.01.2016.
- */
 public class FieldsObject {
     private String title;
 
