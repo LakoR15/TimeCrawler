@@ -1,8 +1,10 @@
 import com.fasterxml.jackson.core.JsonProcessingException;
-import org.springframework.web.client.RestTemplate;
-import slack.message.Message;
-import slack.message.MessageTemplate;
-import slack.response.Response;
+import slack.message.UserReports;
+import slack.model.TextModel;
+import slack.model.Response;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Application {
 
@@ -10,21 +12,25 @@ public class Application {
 
         System.out.println("Запуск TimeCrawler");
 
-        Message message = new Message();
-        message.sendMessage("alexander_volkov", "Сообщение из 1 потока");
-        message.sendMessage("alexander_volkov", "Сообщение из 2 потока");
-        message.sendMessage("alexander_volkov", "Сообщение из 3 потока");
+        Response response = UserReports.getUserList();
+        List<TextModel> textModels = new ArrayList<TextModel>();
+        textModels.add(new TextModel("14.01.16","maxim_nikitin","Кролики","здесь должно быть описание","12","34",response
+                .getMembers()
+                .get(3)
+                .getProfile()
+                .getImage24()));
+        textModels.add(new TextModel("14.01.16","maxim_nikitin","Кролики","здесь должно быть описание","34","34",response
+                .getMembers()
+                .get(3)
+                .getProfile()
+                .getImage24()));
+
+
+       new UserReports().sendUserReport("alexander_volkov",textModels);
+
 
         System.out.println("Завершение TimeCrawler");
     }
 
-    public static void getUserList(){
 
-        String url = "https://slack.com/api/users.list?token=xoxb-18373787971-0b7ajI9mNSOnbswAwIK0sdvW&pretty=1";
-
-        RestTemplate restTemplate = new RestTemplate();
-        Response response = restTemplate.getForObject(url, Response.class);
-        System.out.println(response.getMembers().get(0).toString());
-
-    }
 }

@@ -1,23 +1,49 @@
 package slack.model;
 
+import java.lang.reflect.Array;
+import java.util.List;
+
 /**
  * Created by Gidro on 14.01.2016.
  */
 public class TextModel {
+//    private List<TextModel> textModelArray;
     private String data;
     private String userName;
     private String taskName;
     private String taskValue;
     private String totalHours;
     private String markedHours;
+    private String userImage;
 
-    public TextModel(String data, String userName, String taskName, String taskValue, String totalHours, String markedHours) {
+//    public TextModel(List<TextModel> textModelArray) {
+//        this.textModelArray = textModelArray;
+//    }
+//
+//    public List<TextModel> getTextModelArray() {
+//        return textModelArray;
+//    }
+//
+//    public void setTextModelArray(List<TextModel> textModelArray) {
+//        this.textModelArray = textModelArray;
+//    }
+
+    public TextModel(String data, String userName, String taskName, String taskValue, String totalHours, String markedHours, String userImage) {
         this.data = data;
         this.userName = userName;
         this.taskName = taskName;
         this.taskValue = taskValue;
         this.totalHours = totalHours;
         this.markedHours = markedHours;
+        this.userImage = userImage;
+    }
+
+    public String getUserImage() {
+        return userImage;
+    }
+
+    public void setUserImage(String userImage) {
+        this.userImage = userImage;
     }
 
     public String getTaskName() {
