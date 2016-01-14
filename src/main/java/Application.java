@@ -15,13 +15,11 @@ public class Application {
         Response response = UserReports.getUserList();
         List<TextModel> textModels = new ArrayList<TextModel>();
         textModels.add(new TextModel("14.01.16","maxim_nikitin","Кролики","здесь должно быть описание","12","34",response
-                .getMembers()
-                .get(3)
+                .getMembers().get(3)
                 .getProfile()
                 .getImage24()));
         textModels.add(new TextModel("14.01.16","maxim_nikitin","Кролики","здесь должно быть описание","34","34",response
-                .getMembers()
-                .get(3)
+                .getMembers().get(3)
                 .getProfile()
                 .getImage24()));
 

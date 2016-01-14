@@ -1,16 +1,14 @@
 package slack.model;
 
-import slack.model.AttachmentObject;
-
 import java.util.List;
 
 
-public class MessageObject {
+public class Message {
 
 
 
     private String channel;
-    private List<AttachmentObject> attachments;
+    private List<Attachment> attachments;
 
 
     public String getChannel() {
@@ -21,14 +19,14 @@ public class MessageObject {
         this.channel = channel;
     }
 
-    public List<AttachmentObject> getAttachments() {
+    public List<Attachment> getAttachments() {
         return attachments;
     }
 
-    public void setAttachments(List<AttachmentObject> attachments) {
+    public void setAttachments(List<Attachment> attachments) {
         this.attachments = attachments;
     }
 
-    public MessageObject() {
+    public Message() {
     }
 }

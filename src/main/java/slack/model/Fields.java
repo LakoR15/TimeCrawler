@@ -2,7 +2,7 @@ package slack.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class FieldsObject {
+public class Fields {
     private String title;
 
     public String getTitle() {
@@ -29,13 +29,13 @@ public class FieldsObject {
         this.short_ = short_;
     }
 
-    public FieldsObject(String title, String value, Boolean short_) {
+    public Fields(String title, String value, Boolean short_) {
         this.title = title;
         this.value = value;
         this.short_ = short_;
     }
 
-    public FieldsObject() {
+    public Fields() {
     }
 
     private String value;

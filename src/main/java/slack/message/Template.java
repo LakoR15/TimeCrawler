@@ -2,9 +2,9 @@ package slack.message;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import slack.model.AttachmentObject;
-import slack.model.FieldsObject;
-import slack.model.MessageObject;
+import slack.model.Attachment;
+import slack.model.Fields;
+import slack.model.Message;
 import slack.model.TextModel;
 
 import java.util.ArrayList;
@@ -14,15 +14,15 @@ public class Template {
 
     public String getMessageTemplate(String recipient, List<TextModel> textModelArray) {
 
-        List<AttachmentObject> attachmentObjectArray = new ArrayList<AttachmentObject>();
+        List<Attachment> attachmentArray = new ArrayList<Attachment>();
 
         for (int i = 0; i < textModelArray.size(); i++) {
-            attachmentObjectArray.add(i, attachmantTemplate(textModelArray.get(i),i));
+            attachmentArray.add(i, attachmantTemplate(textModelArray.get(i),i));
         }
 
-        MessageObject messageObject = new MessageObject();
+        Message messageObject = new Message();
         messageObject.setChannel("@" + recipient);
-        messageObject.setAttachments(attachmentObjectArray);
+        messageObject.setAttachments(attachmentArray);
         String json = null;
         try {
             json = new ObjectMapper().writer().withDefaultPrettyPrinter().writeValueAsString(messageObject);
@@ -31,33 +31,33 @@ public class Template {
         return json;
     }
 
-    private AttachmentObject attachmantTemplate(TextModel textModel, int first)  {
+    private Attachment attachmantTemplate(TextModel textModel, int first)  {
 
-        AttachmentObject attachmentObject = new AttachmentObject();
+        Attachment attachment = new Attachment();
         if (textModel.getTotalHours() == textModel.getMarkedHours()){
-            attachmentObject.setColor("good");
-            attachmentObject.setFallback("Умничка!");
+            attachment.setColor("good");
+            attachment.setFallback("Умничка!");
         }
         else {
-            attachmentObject.setColor("danger");
-            attachmentObject.setFallback("Важное уведомление!");
+            attachment.setColor("danger");
+            attachment.setFallback("Важное уведомление!");
         }
 
         if(first == 0) {
-        attachmentObject.setPretext(textModel.getData());
+        attachment.setPretext(textModel.getData());
         }
-        attachmentObject.setAuthor_name(textModel.getUserName());
-        attachmentObject.setAuthor_icon(textModel.getUserImage());
+        attachment.setAuthor_name(textModel.getUserName());
+        attachment.setAuthor_icon(textModel.getUserImage());
 
-        List<FieldsObject> fieldsObjectsArray = new ArrayList<FieldsObject>();
+        List<Fields> fieldsObjectsArray = new ArrayList<Fields>();
 
-        fieldsObjectsArray.add(0, new FieldsObject("Задача: "+textModel.getTaskName(),textModel.getTaskValue(),false));
-        fieldsObjectsArray.add(1, new FieldsObject("Отмечено:",textModel.getMarkedHours(),true));
-        fieldsObjectsArray.add(2, new FieldsObject("Всего:",textModel.getTotalHours(),true));
+        fieldsObjectsArray.add(0, new Fields("Задача: "+textModel.getTaskName(),textModel.getTaskValue(),false));
+        fieldsObjectsArray.add(1, new Fields("Отмечено:",textModel.getMarkedHours(),true));
+        fieldsObjectsArray.add(2, new Fields("Всего:",textModel.getTotalHours(),true));
 
-        attachmentObject.setFields(fieldsObjectsArray);
+        attachment.setFields(fieldsObjectsArray);
 
-        return attachmentObject;
+        return attachment;
     }
 
 }

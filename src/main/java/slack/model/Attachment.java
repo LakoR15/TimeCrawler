@@ -1,10 +1,8 @@
 package slack.model;
 
-import slack.model.FieldsObject;
-
 import java.util.List;
 
-public class AttachmentObject {
+public class Attachment {
 
     private String fallback;
     private String color;
@@ -15,12 +13,12 @@ public class AttachmentObject {
     private String title;
     private String title_link;
     private String text;
-    private List<FieldsObject> fields;
+    private List<Fields> fields;
     private String image_url;
     private String thumb_url;
     private String mrkdwn_in;
 
-    public AttachmentObject(String fallback, String color, String pretext, String author_name, String author_link, String author_icon, String title, String title_link, String text, List<FieldsObject> fields, String image_url, String thumb_url, String mrkdwn_in) {
+    public Attachment(String fallback, String color, String pretext, String author_name, String author_link, String author_icon, String title, String title_link, String text, List<Fields> fields, String image_url, String thumb_url, String mrkdwn_in) {
         this.fallback = fallback;
         this.color = color;
         this.pretext = pretext;
@@ -76,11 +74,11 @@ public class AttachmentObject {
         this.title_link = title_link;
     }
 
-    public List<FieldsObject> getFields() {
+    public List<Fields> getFields() {
         return fields;
     }
 
-    public void setFields(List<FieldsObject> fields) {
+    public void setFields(List<Fields> fields) {
         this.fields = fields;
     }
 
@@ -109,7 +107,7 @@ public class AttachmentObject {
         this.fallback = fallback;
     }
 
-    public AttachmentObject() {
+    public Attachment() {
 
     }
 

@@ -3,9 +3,6 @@ package slack.model;
 import java.lang.reflect.Array;
 import java.util.List;
 
-/**
- * Created by Gidro on 14.01.2016.
- */
 public class TextModel {
 //    private List<TextModel> textModelArray;
     private String data;
