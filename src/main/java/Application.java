@@ -1,5 +1,5 @@
 import com.fasterxml.jackson.core.JsonProcessingException;
-import slack.message.UserReports;
+import slack.controller.UserReports;
 import slack.model.TextModel;
 import slack.model.Response;
 

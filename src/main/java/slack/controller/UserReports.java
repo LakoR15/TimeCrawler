@@ -1,4 +1,4 @@
-package slack.message;
+package slack.controller;
 
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
