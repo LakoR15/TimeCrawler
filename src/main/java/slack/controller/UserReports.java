@@ -11,8 +11,10 @@ import java.nio.charset.Charset;
 import java.util.List;
 
 public class UserReports {
+
     public void sendUserReport(final String recipient, final List<TextModel> textModelArray){
-            final Thread thread = new Thread(new Runnable() {
+
+        final Thread thread = new Thread(new Runnable() {
                 public void run() {
                     String uri = "https://hooks.slack.com/services/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";
                     RestTemplate restTemplate = new RestTemplate();
@@ -27,6 +29,25 @@ public class UserReports {
             thread.start();
 
         }
+
+    public void sendUserReport(String recipient, TextModel textModel){
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String uri = "https://hooks.slack.com/services/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";
+                RestTemplate restTemplate = new RestTemplate();
+                restTemplate.getMessageConverters()
+                        .add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+
+                String result = null;
+                result = restTemplate.postForObject(uri, new Template().getMessageTemplate(recipient, textModel), String.class);
+                System.out.println(result);
+            }
+        });
+        thread.start();
+
+    }
 
     public static Response getUserList() {
 

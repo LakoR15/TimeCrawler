@@ -32,6 +32,22 @@ public class Template {
         return json;
     }
 
+    public String getMessageTemplate(String recipient, TextModel textModel){
+
+        Attachment attachment = attachmantTemplate(textModel, 0);
+        Message message = new Message();
+        message.setChannel("@" + recipient);
+        List<Attachment> attachments = new ArrayList<>();
+        attachments.add(attachment);
+        message.setAttachments(attachments);
+        String json = null;
+        try {
+            json = new ObjectMapper().writer().withDefaultPrettyPrinter().writeValueAsString(message);
+        } catch (JsonProcessingException e) {
+        }
+        return json;
+    }
+
     private Attachment attachmantTemplate(TextModel textModel, int first)  {
 
         Attachment attachment = new Attachment();
@@ -59,7 +75,7 @@ public class Template {
         for(int i=0;i<fieldsList.size();i++) {
             fieldsObjectsArray.add(new Fields("Задача: " + fieldsList.get(i).getTaskName() + " (" + fieldsList.get(i).getProjectName() + ")", null, false));
             fieldsObjectsArray.add(new Fields("Отмечено:", fieldsList.get(i).getMarkedHours() + " ч.", true));
-            totalHours+=Double.parseDouble(fieldsList.get(i).getMarkedHours());
+            totalHours+=Double.parseDouble(String.valueOf(fieldsList.get(i).getMarkedHours()));
         if (i==fieldsList.size()-1)
         {
             fieldsObjectsArray.add(2, new Fields("Всего:",totalHours+" ч.",true));

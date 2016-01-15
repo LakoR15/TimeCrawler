@@ -1,15 +1,16 @@
 package slack.model;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class TextModel {
 
-    private String data;
+    private LocalDate data;
     private String userName;
     private String userImage;
     private List<FieldsTextModel> fieldsList;
 
-    public TextModel(String data, String userName, String userImage, List<FieldsTextModel> fieldsList) {
+    public TextModel(LocalDate data, String userName, String userImage, List<FieldsTextModel> fieldsList) {
         this.data = data;
         this.userName = userName;
         this.userImage = userImage;
@@ -33,12 +34,11 @@ public class TextModel {
         this.userImage = userImage;
     }
 
-    public String getData() {
-
+    public LocalDate getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 

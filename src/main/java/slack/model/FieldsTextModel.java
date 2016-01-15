@@ -5,9 +5,9 @@ public class FieldsTextModel {
     private String taskName;
     private String projectName;
     //    private String totalHours;
-    private String markedHours;
+    private float markedHours;
 
-    public FieldsTextModel(String taskName, String projectName, String markedHours) {
+    public FieldsTextModel(String taskName, String projectName, float markedHours) {
         this.taskName = taskName;
         this.projectName = projectName;
         this.markedHours = markedHours;
@@ -29,11 +29,11 @@ public class FieldsTextModel {
         this.projectName = projectName;
     }
 
-    public String getMarkedHours() {
+    public float getMarkedHours() {
         return markedHours;
     }
 
-    public void setMarkedHours(String markedHours) {
+    public void setMarkedHours(float markedHours) {
         this.markedHours = markedHours;
     }
 }

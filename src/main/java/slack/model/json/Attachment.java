@@ -1,12 +1,13 @@
 package slack.model.json;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class Attachment {
 
     private String fallback;
     private String color;
-    private String pretext;
+    private LocalDate pretext;
     private String author_name;
     private String author_link;
     private String author_icon;
@@ -18,7 +19,7 @@ public class Attachment {
     private String thumb_url;
     private String mrkdwn_in;
 
-    public Attachment(String fallback, String color, String pretext, String author_name, String author_link, String author_icon, String title, String title_link, String text, List<Fields> fields, String image_url, String thumb_url, String mrkdwn_in) {
+    public Attachment(String fallback, String color, LocalDate pretext, String author_name, String author_link, String author_icon, String title, String title_link, String text, List<Fields> fields, String image_url, String thumb_url, String mrkdwn_in) {
         this.fallback = fallback;
         this.color = color;
         this.pretext = pretext;
@@ -119,11 +120,11 @@ public class Attachment {
             this.title = title;
         }
 
-        public String getPretext() {
+        public LocalDate getPretext() {
             return pretext;
         }
 
-        public void setPretext(String pretext) {
+        public void setPretext(LocalDate pretext) {
             this.pretext = pretext;
         }
 
