@@ -1,10 +1,14 @@
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.sun.xml.internal.messaging.saaj.util.FinalArrayList;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import slack.controller.UserReports;
 import slack.model.*;
+import slack.model.json.Fields;
 import slack.model.json.Response;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Application {
@@ -72,9 +76,13 @@ public class Application {
 
     public static void prepareData(List<TimeReport> timeReports, String manager){
 
-        for (TimeReport timeReport: timeReports){
+        Collections.sort(timeReports, new Comparator<TimeReport>() {
+            @Override
+            public int compare(TimeReport o1, TimeReport o2) {
+                return o1.getPerson().toString().compareTo(o2.getPerson().toString());
+            }
+        });
 
-        }
 
 
 
