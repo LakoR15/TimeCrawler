@@ -53,7 +53,7 @@ public class Application {
         timeReports.add(timeReport6);
         timeReports.add(timeReport7);
 
-        prepareData(timeReports, "alexander_volkov");
+        prepareData(timeReports, "maxim_nikitin");
 
 
 //        List<FieldsTextModel> fieldsTextModels = new ArrayList<FieldsTextModel>();
@@ -82,6 +82,30 @@ public class Application {
                 return o1.getPerson().toString().compareTo(o2.getPerson().toString());
             }
         });
+
+        List<TextModel> textModels = new ArrayList<>();
+        Person person = timeReports.get(0).getPerson();
+        List<List> list = new ArrayList();
+        list.add(new ArrayList<FieldsTextModel>());
+        int count = 0;
+        for(int i=0;i<timeReports.size();i++){
+            if(person.equals(timeReports.get(i).getPerson())){
+               list.get(count).add(new FieldsTextModel(timeReports.get(i).getTask().getTitle(),timeReports.get(i).getTask().getProject().getTitle(),timeReports.get(i).getHoursLogged()));
+                if(i==timeReports.size()-1){
+                    textModels.add(new TextModel(timeReports.get(i).getDate(),timeReports.get(i).getPerson().getName(),"",list.get(count)));
+                }
+            }
+            else
+            {
+                textModels.add(new TextModel(timeReports.get(i-1).getDate(),timeReports.get(i-1).getPerson().getName(),"",list.get(count)));
+                count++;
+                person = timeReports.get(i).getPerson();
+                list.add(new ArrayList<FieldsTextModel>());
+                i= i-1;
+            }
+        }
+
+        new UserReports().sendUserReport (manager,textModels);
 
 
 

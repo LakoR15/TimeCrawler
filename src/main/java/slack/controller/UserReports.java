@@ -30,7 +30,7 @@ public class UserReports {
 
         }
 
-    public void sendUserReport(String recipient, TextModel textModel){
+    public void sendUserReport(final String recipient, final TextModel textModel){
 
         Thread thread = new Thread(new Runnable() {
             @Override
