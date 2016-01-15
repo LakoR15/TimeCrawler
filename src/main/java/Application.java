@@ -53,9 +53,8 @@ public class Application {
         timeReports.add(timeReport6);
         timeReports.add(timeReport7);
 
-        new UserReports().send(timeReports, "alexander_volkov");
-
-        System.out.println("Завершение TimeCrawler");
+//        new UserReports().send(timeReports, "alexander_volkov");
+//        new UserReports().getUserList();
     }
 
 }

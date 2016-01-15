@@ -1,6 +1,8 @@
 package slack.controller;
 
 import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 import slack.model.FieldsTextModel;
 import slack.model.Person;
@@ -8,8 +10,6 @@ import slack.model.TimeReport;
 import slack.model.json.Response;
 import slack.model.TextModel;
 
-import java.io.IOException;
-import java.net.UnknownHostException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,8 +28,18 @@ public class UserReports {
                         .add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
 
                 String result = null;
-                result = restTemplate.postForObject(uri, new Template().getMessageTemplate(recipient, textModelArray), String.class);
-                System.out.println(result);
+                try {
+                    result = restTemplate.postForObject(uri, new Template().getMessageTemplate(recipient, textModelArray), String.class);
+                    System.out.println(result);
+                } catch (ResourceAccessException rae) {
+                    throw new RuntimeException("Ошибка отправки, проверить соединение с интернетом " + rae.getMessage());
+                } catch (HttpServerErrorException hsee) {
+                    throw new RuntimeException("Проверьте отправляемые данные " + hsee.getMessage());
+                } catch (Exception e) {
+                    throw new RuntimeException("Неизвестная ошибка " + e.getMessage());
+                }
+
+
             }
         });
         thread.start();
@@ -47,23 +57,37 @@ public class UserReports {
                         .add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
 
                 String result = null;
-                result = restTemplate.postForObject(uri, new Template().getMessageTemplate(recipient, textModel), String.class);
-                System.out.println(result);
+                try {
+                    result = restTemplate.postForObject(uri, new Template().getMessageTemplate(recipient, textModel), String.class);
+                    System.out.println(result);
+                } catch (ResourceAccessException rae) {
+                    throw new RuntimeException("Ошибка отправки, проверить соединение с интернетом " + rae.getMessage());
+                } catch (HttpServerErrorException hsee) {
+                    throw new RuntimeException("Проверьте отправляемые данные " + hsee.getMessage());
+                } catch (Exception e) {
+                    throw new RuntimeException("Неизвестная ошибка " + e.getMessage());
+                }
+
             }
         });
         thread.start();
 
     }
 
-    public static Response getUserList() {
-
+    public Response getUserList() {
 
         String url = "https://slack.com/api/users.list?token=xoxb-18373787971-0b7ajI9mNSOnbswAwIK0sdvW&pretty=1";
 
         RestTemplate restTemplate = new RestTemplate();
         Response response;
-        response = restTemplate.getForObject(url, Response.class);
-        System.out.println(response.getMembers().get(0).toString());
+
+        try {
+            response = restTemplate.getForObject(url, Response.class);
+        }catch (ResourceAccessException rae){
+            throw new RuntimeException("Ошибка получения, проверить соединение с интернетом " + rae.getMessage());
+        }catch (Exception e){
+            throw new RuntimeException("Неизвестная ошибка " +e.getMessage());
+        }
 
         return response;
 
