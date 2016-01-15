@@ -2,13 +2,17 @@ package slack.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.format.annotation.DateTimeFormat;
 import slack.model.FieldsTextModel;
 import slack.model.json.Attachment;
 import slack.model.json.Fields;
 import slack.model.json.Message;
 import slack.model.TextModel;
 
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Template {
@@ -51,16 +55,18 @@ public class Template {
     private Attachment attachmantTemplate(TextModel textModel, int first)  {
 
         Attachment attachment = new Attachment();
-
-            attachment.setColor("danger");
             attachment.setFallback("Отчёты по отмеченному времени");
 
         if(first == 0) {
-        attachment.setPretext(textModel.getData());
+        attachment.setPretext(textModel.getData().toString());
         }
         attachment.setAuthor_name(textModel.getUserName());
         attachment.setAuthor_icon(textModel.getUserImage());
         attachment.setFields(fieldsObjectsArray(textModel));
+            if (Double.parseDouble(attachment.getFields().get(2).getValue().replaceAll(" ч.", "")) > 8)
+                attachment.setColor("good");
+            else
+                attachment.setColor("danger");
 
         return attachment;
     }

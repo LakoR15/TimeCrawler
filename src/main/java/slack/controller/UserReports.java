@@ -11,6 +11,7 @@ import slack.model.json.Response;
 import slack.model.TextModel;
 
 import java.nio.charset.Charset;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
