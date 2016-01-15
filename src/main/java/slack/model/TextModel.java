@@ -7,12 +7,14 @@ public class TextModel {
 
     private LocalDate data;
     private String userName;
+    private String slackId;
     private String userImage;
     private List<FieldsTextModel> fieldsList;
 
-    public TextModel(LocalDate data, String userName, String userImage, List<FieldsTextModel> fieldsList) {
+    public TextModel(LocalDate data, String userName, String userImage, String slackId, List<FieldsTextModel> fieldsList) {
         this.data = data;
         this.userName = userName;
+        this.slackId = slackId;
         this.userImage = userImage;
         this.fieldsList = fieldsList;
     }
@@ -48,5 +50,9 @@ public class TextModel {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getSlackId() {
+        return slackId;
     }
 }

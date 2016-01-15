@@ -53,90 +53,9 @@ public class Application {
         timeReports.add(timeReport6);
         timeReports.add(timeReport7);
 
-        prepareData(timeReports, "maxim_nikitin");
-
-
-//        List<FieldsTextModel> fieldsTextModels = new ArrayList<FieldsTextModel>();
-//        fieldsTextModels.add(new FieldsTextModel("Таск1","Проект1","2"));
-//        fieldsTextModels.add(new FieldsTextModel("Таск2","Проект3","3"));
-//        fieldsTextModels.add(new FieldsTextModel("Таск3","Проект2","4"));
-//
-//        Response response = UserReports.getUserList();
-//
-//        List<TextModel> textModels = new ArrayList<TextModel>();
-//        for(int i=0;i<response.getMembers().size();i++) {
-//            textModels.add(new TextModel("14.16.16", response.getMembers().get(i).getName(), response.getMembers().get(i).getProfile().getImage24(), fieldsTextModels));
-//        }
-//
-//       new UserReports().sendUserReport("maxim_nikitin",textModels);
-
+        new UserReports().send(timeReports, "alexander_volkov");
 
         System.out.println("Завершение TimeCrawler");
     }
-
-    public static void prepareData(List<TimeReport> timeReports, String manager){
-
-        Collections.sort(timeReports, new Comparator<TimeReport>() {
-            @Override
-            public int compare(TimeReport o1, TimeReport o2) {
-                return o1.getPerson().toString().compareTo(o2.getPerson().toString());
-            }
-        });
-
-        List<TextModel> textModels = new ArrayList<>();
-        Person person = timeReports.get(0).getPerson();
-        List<List> list = new ArrayList();
-        list.add(new ArrayList<FieldsTextModel>());
-        int count = 0;
-        for(int i=0;i<timeReports.size();i++){
-            if(person.equals(timeReports.get(i).getPerson())){
-               list.get(count).add(new FieldsTextModel(timeReports.get(i).getTask().getTitle(),timeReports.get(i).getTask().getProject().getTitle(),timeReports.get(i).getHoursLogged()));
-                if(i==timeReports.size()-1){
-                    textModels.add(new TextModel(timeReports.get(i).getDate(),timeReports.get(i).getPerson().getName(),"",list.get(count)));
-                }
-            }
-            else
-            {
-                textModels.add(new TextModel(timeReports.get(i-1).getDate(),timeReports.get(i-1).getPerson().getName(),"",list.get(count)));
-                count++;
-                person = timeReports.get(i).getPerson();
-                list.add(new ArrayList<FieldsTextModel>());
-                i= i-1;
-            }
-        }
-
-        new UserReports().sendUserReport (manager,textModels);
-
-
-
-
-
-
-
-//        FieldsTextModel fieldsTextModel = new FieldsTextModel(timeReports.get(0).getTask().getTitle(),
-//                timeReports.get(0).getTask().getProject().getTitle(),
-//                timeReports.get(0).getHoursLogged());
-//
-//        FieldsTextModel fieldsTextModel1 = new FieldsTextModel(timeReports.get(4).getTask().getTitle(),
-//                timeReports.get(4).getTask().getProject().getTitle(),
-//                timeReports.get(4).getHoursLogged());
-//
-//        List<FieldsTextModel> fieldsTextModels = new ArrayList<>();
-//        fieldsTextModels.add(fieldsTextModel);
-//        fieldsTextModels.add(fieldsTextModel1);
-//
-//        TextModel textModel =new TextModel(timeReports.get(0).getDate(),
-//                timeReports.get(0).getPerson().getSlackId(),
-//                "",
-//                fieldsTextModels);
-//
-//        List<TextModel> textModels = new ArrayList<>();
-//        textModels.add(textModel);
-//
-//        new UserReports().sendUserReport(manager, textModels);
-
-
-    }
-
 
 }
