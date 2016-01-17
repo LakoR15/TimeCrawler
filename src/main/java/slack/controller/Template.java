@@ -19,18 +19,20 @@ public class Template {
 
     public String getMessageTemplate(String recipient, List<TextModel> textModelArray) {
 
-        List<Attachment> attachmentArray = new ArrayList<Attachment>();
+        List<Attachment> attachmentArray = new ArrayList<>();
 
         for (int i = 0; i < textModelArray.size(); i++) {
             attachmentArray.add(i, attachmantTemplate(textModelArray.get(i),i));
         }
 
-        Message messageObject = new Message();
-        messageObject.setChannel("@" + recipient);
-        messageObject.setAttachments(attachmentArray);
+        Message message = new Message();
+        message.setChannel("@" + recipient);
+        message.setAttachments(attachmentArray);
+
         String json = null;
+
         try {
-            json = new ObjectMapper().writer().withDefaultPrettyPrinter().writeValueAsString(messageObject);
+            json = new ObjectMapper().writer().withDefaultPrettyPrinter().writeValueAsString(message);
         } catch (JsonProcessingException e) {
         }
         return json;
@@ -38,13 +40,16 @@ public class Template {
 
     public String getMessageTemplate(String recipient, TextModel textModel){
 
-        Attachment attachment = attachmantTemplate(textModel, 0);
+        List<Attachment> attachments = new ArrayList<>();
+
+        attachments.add(attachmantTemplate(textModel, 0));
+
         Message message = new Message();
         message.setChannel("@" + recipient);
-        List<Attachment> attachments = new ArrayList<>();
-        attachments.add(attachment);
         message.setAttachments(attachments);
+
         String json = null;
+
         try {
             json = new ObjectMapper().writer().withDefaultPrettyPrinter().writeValueAsString(message);
         } catch (JsonProcessingException e) {

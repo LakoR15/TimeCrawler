@@ -1,23 +1,12 @@
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.sun.xml.internal.messaging.saaj.util.FinalArrayList;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import slack.controller.UserReports;
-import slack.model.*;
-import slack.model.json.Fields;
-import slack.model.json.Response;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
 public class Application {
 
     public static void main(String[] args) throws JsonProcessingException {
 
-        SlackCrawler slackCrawler = new SlackCrawler();
-        slackCrawler.run();
-
+        new SlackNotificator().run();
+//        new UserReports().getUserList();
 //        System.out.println("Запуск TimeCrawler");
 //
 //        Project project = new Project("TimeCrawler", "it-support-ci.2");
