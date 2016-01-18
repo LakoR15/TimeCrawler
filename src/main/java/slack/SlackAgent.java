@@ -1,10 +1,7 @@
 package slack;
 
 import slack.controller.UserReports;
-import slack.model.FieldsTextModel;
-import slack.model.Person;
-import slack.model.TextModel;
-import slack.model.TimeReport;
+import slack.model.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,12 +26,7 @@ public class SlackAgent {
 
     private List<TextModel> prepareData(List<TimeReport> timeReports){
 
-        Collections.sort(timeReports, new Comparator<TimeReport>() {
-            @Override
-            public int compare(TimeReport o1, TimeReport o2) {
-                return o1.getPerson().toString().compareTo(o2.getPerson().toString());
-            }
-        });
+        Collections.sort(timeReports, (o1, o2) -> o1.getPerson().toString().compareTo(o2.getPerson().toString()));
 
         List<TextModel> textModels = new ArrayList<>();
         Person person = timeReports.get(0).getPerson();
@@ -60,8 +52,14 @@ public class SlackAgent {
     }
 
     public List<TimeReport> getTimeReports(){
-
-
-        return new ArrayList<>();
+        //TODO: Заменить на запрос к базе
+        return TimeReportLab.initializeData();
     }
+
+    public List<String> getManagers(){
+        //TODO: Заменить на запрос к базе
+        return TimeReportLab.initializeManagers();
+
+    }
+
 }
