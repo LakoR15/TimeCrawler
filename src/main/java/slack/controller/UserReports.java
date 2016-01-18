@@ -13,19 +13,19 @@ public class UserReports {
 
     private final String URL = "https://hooks.slack.com/services/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";
 
-    public void sendReport(String recipient, List<TextModel> textModelArray) {
+    public void sendReport(String slackUserName, List<TextModel> textModelArray) {
 
         final Thread thread = new Thread(() -> {
-            send(new Template().getMessageTemplate(recipient, textModelArray));
+            send(new Template().getMessageTemplate(slackUserName, textModelArray));
         });
         thread.start();
 
     }
 
-    public void sendReport(String recipient, TextModel textModel) {
+    public void sendReport(String slackUserName, TextModel textModel) {
 
         Thread thread = new Thread(() -> {
-            send(new Template().getMessageTemplate(recipient, textModel));
+            send(new Template().getMessageTemplate(slackUserName, textModel));
         });
         thread.start();
 

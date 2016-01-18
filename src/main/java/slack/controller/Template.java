@@ -17,7 +17,7 @@ import java.util.List;
 
 public class Template {
 
-    public String getMessageTemplate(String recipient, List<TextModel> textModelArray) {
+    public String getMessageTemplate(String slackUserName, List<TextModel> textModelArray) {
 
         List<Attachment> attachmentArray = new ArrayList<>();
 
@@ -26,7 +26,7 @@ public class Template {
         }
 
         Message message = new Message();
-        message.setChannel("@" + recipient);
+        message.setChannel("@" + slackUserName);
         message.setAttachments(attachmentArray);
 
         String json = null;
@@ -38,14 +38,14 @@ public class Template {
         return json;
     }
 
-    public String getMessageTemplate(String recipient, TextModel textModel){
+    public String getMessageTemplate(String slackUserName, TextModel textModel){
 
         List<Attachment> attachments = new ArrayList<>();
 
         attachments.add(attachmantTemplate(textModel, 0));
 
         Message message = new Message();
-        message.setChannel("@" + recipient);
+        message.setChannel("@" + slackUserName);
         message.setAttachments(attachments);
 
         String json = null;
